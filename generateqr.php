@@ -8,9 +8,6 @@ if (!file_exists('temp/')) {
     mkdir('temp/', 0777, true);
 }
 
-$error = '';
-$qr_link = '';
-
 $nombre = trim($_POST['nombre']);
 $cantidad = trim($_POST['cantidad']);
 $telefono = trim($_POST['telefono']);
@@ -40,6 +37,23 @@ if (empty($nombre) || empty($cantidad) || empty($telefono)) {
             $error = "Error al generar el QR.";
         }
     }
+}
+
+
+// Validaciones adicionales
+if (empty($nombre) || strlen($nombre) > 50) {
+    $error = "El nombre es obligatorio y no debe exceder los 50 caracteres.";
+} elseif (empty($cantidad) || !is_numeric($cantidad) || $cantidad <= 0) {
+    $error = "La cantidad es obligatoria y debe ser un número positivo.";
+} elseif (empty($telefono) || !is_numeric($telefono) || strlen($telefono) != 10) {
+    $error = "El teléfono es obligatorio y debe tener 10 dígitos.";
+} else {
+    // Aquí puedes insertar los datos en la base de datos usando consultas preparadas
+    $stmt = $pdo->prepare("INSERT INTO your_table (nombre, cantidad, telefono) VALUES (:nombre, :cantidad, :telefono)");
+    $stmt->bindParam(':nombre', $nombre);
+    $stmt->bindParam(':cantidad', $cantidad);
+    $stmt->bindParam(':telefono', $telefono);
+    $stmt->execute();
 }
 
 ?>
@@ -77,8 +91,8 @@ if (empty($nombre) || empty($cantidad) || empty($telefono)) {
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+</HTML>
