@@ -52,6 +52,6 @@ Esta aplicación está diseñada para ejecutarse en un contenedor Docker. Aquí 
   docker run -p 8080:80 myapp-qr-generator
    ```
 
-3.Una vez que el contenedor esté en ejecución, puedes acceder a la aplicación en tu navegador en la dirección http://localhost:8080/.
+3. Una vez que el contenedor esté en ejecución, puedes acceder a la aplicación en tu navegador en la dirección http://localhost:8080/.
 
-4.Cuando hayas terminado, puedes detener el contenedor con Ctrl+C.
+4. Cuando hayas terminado, puedes detener el contenedor con Ctrl+C.
